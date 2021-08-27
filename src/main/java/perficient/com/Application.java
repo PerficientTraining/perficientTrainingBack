@@ -1,14 +1,13 @@
-package perficientTraining;
+package perficient.com;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PerficientTrainingApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PerficientTrainingApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }
-

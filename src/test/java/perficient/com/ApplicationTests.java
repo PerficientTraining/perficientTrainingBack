@@ -1,10 +1,10 @@
-package perficientTraining;
+package perficient.com;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PerficientTrainingApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
