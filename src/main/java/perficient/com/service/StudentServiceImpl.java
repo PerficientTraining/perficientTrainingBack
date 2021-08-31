@@ -19,7 +19,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     
     public Student create(StudentDto userDto) {
-   
+        
         Student createStudent = new Student(userDto);
         int uniqueId = (int) UUID.randomUUID().hashCode();
         createStudent.setId(uniqueId);

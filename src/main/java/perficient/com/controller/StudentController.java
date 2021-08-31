@@ -24,6 +24,7 @@ public class StudentController {
     StudentService studentService;
 
     @GetMapping()
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> all() {
         try {
             return new ResponseEntity<>(studentService.all(), HttpStatus.ACCEPTED);
@@ -33,12 +34,13 @@ public class StudentController {
     }
 
     @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> create(@RequestBody StudentDto studentDto) {
         try {
             studentService.create(studentDto);
-            return new ResponseEntity<>("Student " + studentDto.getName() + " create", HttpStatus.CREATED);
+            return new ResponseEntity<>("Student " + studentDto.getName() + " create.", HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+            return new ResponseEntity<>("User not Created", HttpStatus.CONFLICT);
 
         }
     }
@@ -46,33 +48,34 @@ public class StudentController {
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable int id) {
         try {
-            Student student = studentService.findById(id);
-            return new ResponseEntity<>(studentService.findById(id), HttpStatus.ACCEPTED);
+            System.out.println(studentService.findById(id).toString());
+            return new ResponseEntity<Student>(studentService.findById(id), HttpStatus.ACCEPTED);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Student with id: " + id + "not found.", HttpStatus.NOT_FOUND);
         }
 
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> update(@PathVariable int id, @RequestBody StudentDto studentDto) {
         try {
             studentService.update(studentDto, id);
-            return new ResponseEntity<>("Student " + studentDto.getName() + " update", HttpStatus.CONTINUE);
+            return new ResponseEntity<>("Student " + studentDto.getName() + " update.", HttpStatus.ACCEPTED);
         } catch (Exception e) {
-            return (ResponseEntity<String>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Student " + studentDto.getName() + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> DeleteById(@PathVariable int id) {
         try {
             Student student = studentService.findById(id);
             studentService.deleteById(id);
-            return new ResponseEntity<>("Student with id" + id + " delete", HttpStatus.ACCEPTED);
+            return new ResponseEntity<>("Student with id" + id + " delete.", HttpStatus.ACCEPTED);
         } catch (Exception e) {
-            return (ResponseEntity<String>) ResponseEntity.status(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Student with id" + id + " not found.", HttpStatus.NOT_FOUND);
         }
 
     }
