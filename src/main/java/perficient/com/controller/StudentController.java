@@ -25,7 +25,7 @@ public class StudentController {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<?> all() {
+    public ResponseEntity<?> all() throws Exception {
         try {
             return new ResponseEntity<>(studentService.all(), HttpStatus.ACCEPTED);
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class StudentController {
     public ResponseEntity<?> findById(@PathVariable int id) {
         try {
             System.out.println(studentService.findById(id).toString());
-            return new ResponseEntity<Student>(studentService.findById(id), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(studentService.findById(id), HttpStatus.ACCEPTED);
         } catch (Exception e) {
             return new ResponseEntity<>("Student with id: " + id + "not found.", HttpStatus.NOT_FOUND);
         }
@@ -61,9 +61,9 @@ public class StudentController {
     public ResponseEntity<?> update(@PathVariable int id, @RequestBody StudentDto studentDto) {
         try {
             studentService.update(studentDto, id);
-            return new ResponseEntity<>("Student " + studentDto.getName() + " update.", HttpStatus.ACCEPTED);
+            return new ResponseEntity<>("Student " + studentDto.getUserId() + " update.", HttpStatus.ACCEPTED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Student " + studentDto.getName() + " not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Student with id " + studentDto.getUserId() + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -71,7 +71,7 @@ public class StudentController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> DeleteById(@PathVariable int id) {
         try {
-            Student student = studentService.findById(id);
+            Object student = studentService.findById(id);
             studentService.deleteById(id);
             return new ResponseEntity<>("Student with id" + id + " delete.", HttpStatus.ACCEPTED);
         } catch (Exception e) {

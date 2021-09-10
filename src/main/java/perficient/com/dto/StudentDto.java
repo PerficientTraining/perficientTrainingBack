@@ -7,20 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
 import perficient.com.model.BaseEntity;
 
-/**
- * Simple JavaBean domain object representing an StudentDto.
- *
- * @author brayan burgos
- */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@SuperBuilder(toBuilder = true)
-public class StudentDto implements Serializable {
+public class StudentDto extends BaseEntity implements Serializable {
 
     private int personalId;
     private String lastName;
