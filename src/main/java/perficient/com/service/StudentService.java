@@ -12,14 +12,14 @@ import perficient.com.model.Student;
 
 public interface StudentService<T> {
     
-    T create (StudentDto studentDto) throws Exception;
+    T create (StudentDto studentDto) throws PerficientServiceException;
     
-    T findById (Integer id)  throws Exception;
+    T findById (Integer id)  throws PerficientServiceException;
     
-    Collection <T> all() throws Exception;
+    Collection <T> all() throws PerficientServiceException;
     
-    void deleteById (int id) throws Exception;
+    void deleteById (int id) throws PerficientServiceException;
    
-    void update(StudentDto studentDto, Integer id) throws Exception;
+    void update(StudentDto studentDto, Integer id) throws PerficientServiceException;
 
 }

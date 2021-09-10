@@ -1,10 +1,11 @@
 package perficient.com.service.impl;
 
+import perficient.com.service.PerficientServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import perficient.com.dto.StudentDto;
 import perficient.com.model.Student;
-import perficient.com.repository.StudentRepository;
+import perficient.com.persistence.impl.StudentPersistenceImpl;
 import perficient.com.service.StudentService;
 import java.util.Collection;
 import java.util.Date;
@@ -16,41 +17,49 @@ import lombok.NoArgsConstructor;
 public class StudentServiceImp implements StudentService<Student> {
     
     @Autowired
-    StudentRepository studentRepository;
+    StudentPersistenceImpl studentRepository;
 
     @Override
-    public Student create(StudentDto studentDto) throws Exception {
+    public Student create(StudentDto studentDto) throws PerficientServiceException {
         try {
             int uniqueId = (int) UUID.randomUUID().hashCode();
             Student createStudent = new Student(studentDto, uniqueId, new Date());
-            studentRepository.createStudent(createStudent);
+            studentRepository.addStudent(createStudent);
             return createStudent;
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new PerficientServiceException(e.getMessage());
         }
     }
 
     @Override
-    public Student findById(Integer id) throws Exception {
-       return null; 
-    }
-
-    @Override
-    public Collection<Student> all() throws Exception{
+    public Student findById(Integer id) throws PerficientServiceException {
         try {
-            return (Collection) studentRepository.findAllUsers();
+            studentRepository.getStudentById(id);
+            return studentRepository.getStudentById(id);
         } catch (Exception e) {
-            throw new Exception (e.getMessage());
+            throw new PerficientServiceException(e.getMessage());
         }
-    }
-
-    @Override
-    public void deleteById(int id) {
         
     }
 
     @Override
+    public Collection<Student> all() throws PerficientServiceException{
+        try {
+            return (Collection) studentRepository.getAllStudents();
+        } catch (Exception e) {
+            throw new PerficientServiceException(e.getMessage());
+        }
+    }
+
+
+
+    @Override
     public void update(StudentDto studentDto, Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteById(int id) throws PerficientServiceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
