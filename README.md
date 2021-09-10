@@ -1,6 +1,6 @@
 # _PerficientTraining_🤓🧑‍🎓
 
-### _🧑‍💻Created by, [Brayan Steven Burgos Delgado](https://www.linkedin.com/in/brayan-steven-burgos-delgado-21a9a0178/)_
+### _🧑‍💻Created by the software Developer -> [Brayan Steven Burgos Delgado](https://www.linkedin.com/in/brayan-steven-burgos-delgado-21a9a0178/)_
 
 ### Abstract
 
