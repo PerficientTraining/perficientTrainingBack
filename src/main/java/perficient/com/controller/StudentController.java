@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import perficient.com.dto.StudentDto;
-import perficient.com.model.Student;
 import perficient.com.service.StudentService;
 
 @RestController
@@ -25,11 +24,11 @@ public class StudentController {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<?> all() throws Exception {
+    public ResponseEntity<?> all(){
         try {
             return new ResponseEntity<>(studentService.all(), HttpStatus.ACCEPTED);
         } catch (Exception e) {
-            return new ResponseEntity<>(studentService.all(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -38,7 +37,7 @@ public class StudentController {
     public ResponseEntity<?> create(@RequestBody StudentDto studentDto) {
         try {
             studentService.create(studentDto);
-            return new ResponseEntity<>("Student " + studentDto.getName() + " create.", HttpStatus.CREATED);
+            return new ResponseEntity<>("Student " + studentDto.getFirstName() + " create.", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("User not Created", HttpStatus.CONFLICT);
 
@@ -48,7 +47,6 @@ public class StudentController {
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable int id) {
         try {
-            System.out.println(studentService.findById(id).toString());
             return new ResponseEntity<>(studentService.findById(id), HttpStatus.ACCEPTED);
         } catch (Exception e) {
             return new ResponseEntity<>("Student with id: " + id + "not found.", HttpStatus.NOT_FOUND);
@@ -57,8 +55,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<?> update(@PathVariable int id, @RequestBody StudentDto studentDto) {
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody StudentDto studentDto){
         try {
             studentService.update(studentDto, id);
             return new ResponseEntity<>("Student " + studentDto.getUserId() + " update.", HttpStatus.ACCEPTED);
@@ -68,11 +65,11 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> DeleteById(@PathVariable int id) {
         try {
-            Object student = studentService.findById(id);
+            studentService.findById(id);
             studentService.deleteById(id);
+            
             return new ResponseEntity<>("Student with id" + id + " delete.", HttpStatus.ACCEPTED);
         } catch (Exception e) {
             return new ResponseEntity<>("Student with id" + id + " not found.", HttpStatus.NOT_FOUND);

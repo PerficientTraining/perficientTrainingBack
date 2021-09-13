@@ -20,7 +20,7 @@ public class Student{
     private int id;
     private int personalId;
     private String lastName;
-    private String name;
+    private String firstName;
     private String secondName;
     private String carreer;
     private Date bornDate;
@@ -32,7 +32,7 @@ public class Student{
     public Student(StudentDto studentDto,  int uniqueId, Date created) {
         this.personalId = studentDto.getPersonalId();
         this.lastName = studentDto.getLastName();
-        this.name = studentDto.getLastName();
+        this.firstName = studentDto.getLastName();
         this.secondName = studentDto.getSecondName();
         this.carreer = studentDto.getCarreer();
         this.bornDate = studentDto.getBornDate();
@@ -50,7 +50,7 @@ public class Student{
      public void setStudentDto(StudentDto studentDto) {
         this.personalId = studentDto.getPersonalId();
         this.lastName = studentDto.getLastName();
-        this.name = studentDto.getLastName();
+        this.firstName = studentDto.getLastName();
         this.secondName = studentDto.getSecondName();
         this.carreer = studentDto.getCarreer();
         this.bornDate = studentDto.getBornDate();

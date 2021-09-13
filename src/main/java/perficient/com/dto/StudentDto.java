@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 import perficient.com.model.BaseEntity;
 
 @NoArgsConstructor
@@ -17,7 +16,7 @@ public class StudentDto extends BaseEntity implements Serializable {
 
     private int personalId;
     private String lastName;
-    private String name;
+    private String firstName;
     private String secondName;
     private String carreer;
     private Date bornDate;

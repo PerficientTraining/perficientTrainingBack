@@ -1,6 +1,5 @@
 package perficient.com.persistence;
 
-
 import java.util.Collection;
 import perficient.com.model.Student;
 
@@ -16,6 +15,4 @@ public interface IStudentPersistence  {
 
     void saveStudent(Student student)throws PerficientPersistenceException;
     
-
-
 }

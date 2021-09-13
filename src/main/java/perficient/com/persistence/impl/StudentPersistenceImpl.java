@@ -6,19 +6,29 @@ import org.springframework.stereotype.Repository;
 import perficient.com.model.Student;
 
 import java.util.Collection;
+import javax.activation.DataSource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import perficient.com.persistence.IStudentPersistence;
-import perficient.com.persistence.repository.IStudentRepository;
 import perficient.com.persistence.PerficientPersistenceException;
 
 @Repository
 @NoArgsConstructor
 public class StudentPersistenceImpl implements IStudentPersistence{
     
+    private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    
+    @Autowired
+    public void setDataSourve(DataSource dataSource){
+        jdbcTemplate = new JdbcTemplate((javax.sql.DataSource) dataSource);
+        namedParameterJdbcTemplate = new NamedParameterJdbcTemplate((javax.sql.DataSource) dataSource);
+    }
+    
     @Autowired 
-    IStudentRepository studentRepository;
+    IStudentPersistence studentRepository;
 
     @PersistenceContext
     EntityManager entityManager;
@@ -26,7 +36,9 @@ public class StudentPersistenceImpl implements IStudentPersistence{
     @Override
     public void addStudent(Student student) throws PerficientPersistenceException {
         try {
-            studentRepository.save(student);
+            StringBuilder sql = new StringBuilder(100);
+            sql.append("INSERT INTO public.student");
+            sql.append(" VALUES (:id,:personalid");
         } catch (Exception e) {
             throw new PerficientPersistenceException("Failed to create Student");
         }
@@ -34,12 +46,10 @@ public class StudentPersistenceImpl implements IStudentPersistence{
     @Override
     public Collection<Student> getAllStudents() throws PerficientPersistenceException {
         try {
-            if (studentRepository.count()>0)
-            return studentRepository.findAll();
+            return studentRepository.getAllStudents();
         } catch (Exception e) {
             throw new PerficientPersistenceException("Users No Found");
         }
-        return studentRepository.findAll();
     }
 
     @Override
