@@ -7,10 +7,8 @@ package perficient.com.service;
 
 import java.util.Collection;
 import perficient.com.dto.StudentDto;
-import perficient.com.model.Student;
 
-
-public interface StudentService<T> {
+public interface IStudentService<T> {
     
     T create (StudentDto studentDto) throws PerficientServiceException;
     

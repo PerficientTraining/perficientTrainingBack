@@ -1,69 +1,88 @@
 package perficient.com.persistence.impl;
 
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import perficient.com.dto.StudentDto;
 import perficient.com.model.Student;
-
-import java.util.Collection;
-import javax.activation.DataSource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import perficient.com.persistence.IStudentPersistence;
 import perficient.com.persistence.PerficientPersistenceException;
+import perficient.com.persistence.repository.IStudentRepository;
 
-@Repository
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.Collection;
+
+
 @NoArgsConstructor
-public class StudentPersistenceImpl implements IStudentPersistence{
-    
-    private JdbcTemplate jdbcTemplate;
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+@AllArgsConstructor
+@Repository
+public class StudentPersistenceImpl implements IStudentPersistence {
+
     @Autowired
-    public void setDataSourve(DataSource dataSource){
-        jdbcTemplate = new JdbcTemplate((javax.sql.DataSource) dataSource);
-        namedParameterJdbcTemplate = new NamedParameterJdbcTemplate((javax.sql.DataSource) dataSource);
-    }
-    
-    @Autowired 
-    IStudentPersistence studentRepository;
+    IStudentRepository studentRepository;
 
     @PersistenceContext
     EntityManager entityManager;
 
     @Override
-    public void addStudent(Student student) throws PerficientPersistenceException {
-        try {
-            StringBuilder sql = new StringBuilder(100);
-            sql.append("INSERT INTO public.student");
-            sql.append(" VALUES (:id,:personalid");
-        } catch (Exception e) {
-            throw new PerficientPersistenceException("Failed to create Student");
+    public void createStudent(Student student) throws PerficientPersistenceException {
+        try{
+            studentRepository.save(student);
+        }catch (Exception e) {
+            throw new PerficientPersistenceException("Failed to created the Student.");
         }
     }
+
     @Override
     public Collection<Student> getAllStudents() throws PerficientPersistenceException {
-        try {
-            return studentRepository.getAllStudents();
-        } catch (Exception e) {
-            throw new PerficientPersistenceException("Users No Found");
+        try{
+            if(studentRepository.count()!=0){
+                return studentRepository.findAll();
+            }
+        }catch (Exception e){
+            throw new PerficientPersistenceException("Students no found.");
         }
+        return studentRepository.findAll();
     }
 
     @Override
-    public void saveStudent(Student student) throws PerficientPersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Student findStudentById(int id) throws PerficientPersistenceException {
+        try {
+            Student student = studentRepository.getById(id);
+            if (!student.equals(null)){
+                return student;
+            }
+
+        }catch (Exception e){
+            throw new PerficientPersistenceException("Student with id: "+ id +" no found.");
+        }
+        return new Student();
     }
 
     @Override
-    public Student getStudentByName(String nameStudent) throws PerficientPersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteStudent(int id) throws PerficientPersistenceException {
+        try {
+            Student student = studentRepository.getById(id);
+            if (!student.equals(null)){
+                studentRepository.delete(student);
+            }
+        }catch (Exception e){
+            throw new PerficientPersistenceException("Student with id: "+ id + "no delete");
+
+        }
+
     }
 
     @Override
-    public Student getStudentById(int id) throws PerficientPersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateStudent(StudentDto studentDto, int id) throws PerficientPersistenceException {
+        try {
+            Student student = studentRepository.getById(id);
+            student.setStudentDto(studentDto);
+            studentRepository.save(student);
+        }catch (Exception e){
+            throw new PerficientPersistenceException("Student with id: "+ id + "no update");
+        }
     }
 }

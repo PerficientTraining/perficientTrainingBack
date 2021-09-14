@@ -9,7 +9,6 @@ import lombok.Setter;
 import perficient.com.model.BaseEntity;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class StudentDto extends BaseEntity implements Serializable {
@@ -18,7 +17,7 @@ public class StudentDto extends BaseEntity implements Serializable {
     private String lastName;
     private String firstName;
     private String secondName;
-    private String carreer;
+    private String career;
     private Date bornDate;
     private String userId;
     private String password;
