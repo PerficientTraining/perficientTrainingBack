@@ -17,5 +17,10 @@ public interface IStudentPersistence  {
     void deleteStudent(int id)throws PerficientPersistenceException;
 
     void updateStudent(StudentDto studentDto, int id)throws PerficientPersistenceException;
+
+    boolean userIsUnique(String user) throws PerficientPersistenceException;
+
+    boolean mailIsUnique(String mail) throws PerficientPersistenceException;
+
     
 }

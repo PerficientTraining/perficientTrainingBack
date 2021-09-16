@@ -6,14 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import perficient.com.dto.StudentDto;
 import perficient.com.model.Student;
-import perficient.com.persistence.impl.StudentPersistenceImpl;
 import perficient.com.service.IStudentService;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
 import lombok.NoArgsConstructor;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
 
 @NoArgsConstructor
 @Service
@@ -59,6 +57,30 @@ public class StudentServiceImp implements IStudentService<Student> {
             if (studentPersistence.findStudentById(id)!=null){
                 studentPersistence.updateStudent(studentDto, id);
             }
+        }catch (Exception e){
+            throw new PerficientServiceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean userIsUnique(String user) throws PerficientServiceException {
+        try{
+            if (studentPersistence.userIsUnique(user)){
+                return true;
+            }
+            return false;
+        }catch (Exception e){
+            throw new PerficientServiceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean mailIsUnique(String mail) throws PerficientServiceException {
+        try{
+            if (!studentPersistence.mailIsUnique(mail)){
+                return false;
+            }
+            return true;
         }catch (Exception e){
             throw new PerficientServiceException(e.getMessage());
         }

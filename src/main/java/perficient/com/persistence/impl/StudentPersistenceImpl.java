@@ -13,6 +13,8 @@ import perficient.com.persistence.repository.IStudentRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @NoArgsConstructor
@@ -46,7 +48,6 @@ public class StudentPersistenceImpl implements IStudentPersistence {
         }
         return studentRepository.findAll();
     }
-
     @Override
     public Student findStudentById(int id) throws PerficientPersistenceException {
         try {
@@ -60,7 +61,6 @@ public class StudentPersistenceImpl implements IStudentPersistence {
         }
         return new Student();
     }
-
     @Override
     public void deleteStudent(int id) throws PerficientPersistenceException {
         try {
@@ -74,7 +74,6 @@ public class StudentPersistenceImpl implements IStudentPersistence {
         }
 
     }
-
     @Override
     public void updateStudent(StudentDto studentDto, int id) throws PerficientPersistenceException {
         try {
@@ -84,5 +83,37 @@ public class StudentPersistenceImpl implements IStudentPersistence {
         }catch (Exception e){
             throw new PerficientPersistenceException("Student with id: "+ id + "no update");
         }
+    }
+    @Override
+    public boolean userIsUnique(String user) throws PerficientPersistenceException {
+        try{
+            List<Student> listStudent = studentRepository.findAll();
+            List<Student> filterUserNames = listStudent
+                    .stream()
+                    .filter(student -> student.getUserId() == user)
+                    .limit(1).collect(Collectors.toList());
+            if (filterUserNames.isEmpty()) return true;
+
+        }
+        catch (Exception e){
+            throw new PerficientPersistenceException("Student with Name: "+ user + "no available");
+        }
+        return false;
+    }
+    public boolean mailIsUnique(String mail) throws PerficientPersistenceException {
+        try{
+            List<Student> listStudent = studentRepository.findAll();
+            List<Student> filterUserNames = listStudent.stream()
+                    .filter(student -> student.getMail() == mail)
+                    .limit(2).collect(Collectors.toList());
+            System.out.println(filterUserNames.get(0).toString());
+            if (filterUserNames.isEmpty()){
+                return true;
+            }
+        }
+        catch (Exception e){
+            throw new PerficientPersistenceException("Mail "+ mail + "no available");
+        }
+        return false;
     }
 }

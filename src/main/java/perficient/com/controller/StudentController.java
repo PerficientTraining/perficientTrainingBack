@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import perficient.com.dto.StudentDto;
 import perficient.com.service.IStudentService;
+import perficient.com.service.PerficientServiceException;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -16,7 +17,7 @@ public class StudentController {
     IStudentService studentService;
 
     @GetMapping()
-    public ResponseEntity<?> all(){
+    public ResponseEntity<?> all() {
         try {
             return new ResponseEntity<>(studentService.all(), HttpStatus.ACCEPTED);
         } catch (Exception e) {
@@ -28,7 +29,7 @@ public class StudentController {
     public ResponseEntity<?> create(@RequestBody StudentDto studentDto) {
         try {
             studentService.create(studentDto);
-            return new ResponseEntity<>("Student " + studentDto.getFirstName() + " create.", HttpStatus.CREATED);
+            return new ResponseEntity<>("Student create.", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("User not Created", HttpStatus.CONFLICT);
 
@@ -40,13 +41,13 @@ public class StudentController {
         try {
             return new ResponseEntity<>(studentService.findById(id), HttpStatus.ACCEPTED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Student with id: " + id + "not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Student with id: " + id + " not found.", HttpStatus.NOT_FOUND);
         }
 
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable int id, @RequestBody StudentDto studentDto){
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody StudentDto studentDto) {
         try {
             studentService.update(studentDto, id);
             return new ResponseEntity<>("Student " + studentDto.getUserId() + " update.", HttpStatus.ACCEPTED);
@@ -56,16 +57,36 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> DeleteById(@PathVariable int id) {
+    public ResponseEntity<?> deleteById(@PathVariable int id) {
         try {
             studentService.findById(id);
             studentService.deleteById(id);
-            
-            return new ResponseEntity<>("Student with id" + id + " delete.", HttpStatus.ACCEPTED);
+
+            return new ResponseEntity<>("Student with id " + id + " delete.", HttpStatus.ACCEPTED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Student with id" + id + " not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Student with id " + id + " not found.", HttpStatus.NOT_FOUND);
         }
 
     }
 
+    @PostMapping("/user")
+    public ResponseEntity<?> userIsUnique(@RequestBody String userName) throws PerficientServiceException {
+        try {
+            studentService.userIsUnique(userName);
+            return new ResponseEntity<>("Student with user name " + userName + " is not available.", HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Student with name " + userName + " is available.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/mail")
+    public ResponseEntity<?> mailIsUnique(@RequestBody String mail) throws PerficientServiceException {
+
+        try {
+            studentService.mailIsUnique(mail);
+            return new ResponseEntity<>("Mail " + mail + " is unique.", HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Mail  " + mail + " is not unique.", HttpStatus.NOT_FOUND);
+        }
+    }
 }

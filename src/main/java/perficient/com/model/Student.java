@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -61,7 +60,7 @@ public class Student implements Serializable {
         this.bornDate = studentDto.getBornDate();
         this.userId = studentDto.getUserId();
         this.password = studentDto.getPassword();
-        this.mail = studentDto.getPassword();
+        this.mail = studentDto.getMail();
         this.id = uniqueId;
         this.createdAt = created;
     }
