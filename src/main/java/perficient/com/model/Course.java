@@ -29,9 +29,9 @@ public class Course implements Serializable {
     @NotEmpty @NotNull @Column(name = "heavy")
     private int heavy;
     @NotEmpty @NotNull @Column(name = "career")
-    private int career;
+    private String career;
     @NotEmpty @NotNull @Column(name = "teacher")
-    private int teacher;
+    private String teacher;
     @NotEmpty @NotNull @Column(name = "createdAt")
     private Date createdAt;
 
@@ -44,12 +44,10 @@ public class Course implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public void setCourse(CourseDto courseDto){
-        this.id = courseDto.getId();
+    public void setCourseDto(CourseDto courseDto){
         this.nameCourse = courseDto.getNameCourse();
         this.heavy = courseDto.getHeavy();
         this.career = courseDto.getCareer();
         this.teacher = courseDto.getTeacher();
-        this.createdAt = courseDto.getCreatedAt();
     }
 }

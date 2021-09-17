@@ -2,11 +2,8 @@ package perficient.com.persistence;
 
 import java.util.Collection;
 import java.util.Optional;
-
 import perficient.com.dto.StudentDto;
-import perficient.com.model.Course;
 import perficient.com.model.Student;
-import perficient.com.persistence.PerficientPersistenceException;
 
 public interface IStudentPersistence  {
     
@@ -19,4 +16,10 @@ public interface IStudentPersistence  {
     void deleteStudent(int id)throws PerficientPersistenceException;
 
     void updateStudent(StudentDto studentDto, int id)throws PerficientPersistenceException;
+
+    /*
+    Optional<Student> findByMail(String mail) throws PerficientPersistenceException;
+
+    Optional<Student> findByUserName(String userName) throws PerficientPersistenceException;
+     */
 }

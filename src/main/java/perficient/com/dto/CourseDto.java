@@ -15,6 +15,6 @@ public class CourseDto extends BaseEntity implements Serializable {
 
     private String nameCourse;
     private int heavy;
-    private int career;
-    private int teacher;
+    private String career;
+    private String teacher;
 }

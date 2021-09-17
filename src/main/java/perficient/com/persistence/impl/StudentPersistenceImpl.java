@@ -64,6 +64,7 @@ public class StudentPersistenceImpl implements IStudentPersistence {
         }
         return new Student();
     }
+
     @Override
     public void deleteStudent(int id) throws PerficientPersistenceException {
         try {
@@ -76,6 +77,7 @@ public class StudentPersistenceImpl implements IStudentPersistence {
 
         }
     }
+
     @Override
     public void updateStudent(StudentDto studentDto, int id) throws PerficientPersistenceException {
         try {
@@ -86,20 +88,25 @@ public class StudentPersistenceImpl implements IStudentPersistence {
             throw new PerficientPersistenceException("Student with id: "+ id + "no update");
         }
     }
-    @Transactional
-    public Optional<Student> findByEmail(String mail) {
-        return studentRepository.findByMail(mail);
+
+    /*
+    @Override
+    public Optional<Student> findByMail(String mail) throws PerficientPersistenceException {
+        try {
+            return studentRepository.findByMail(mail);
+        }catch (Exception e){
+            throw new PerficientPersistenceException("Student with mail: "+ mail + "no found");
+        }
+
     }
 
-    @Transactional
-    public Optional<Student> finByUserName(String userName) {
-        return studentRepository.findByUserName(userName);
+    @Override
+    public Optional<Student> findByUserName(String userName) throws PerficientPersistenceException {
+        try {
+            return studentRepository.findByUserName(userName);
+        }catch (Exception e){
+            throw new PerficientPersistenceException("Student with username: "+ userName + "no found");
+        }
     }
-
-    public boolean appEmailExists(String mail){
-        return findByEmail(mail).isPresent();
-    }
-    public boolean appUserNameExists(String userName){
-        return finByUserName(userName).isPresent();
-    }
+    */
 }
