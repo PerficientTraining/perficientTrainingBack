@@ -1,14 +1,16 @@
 package perficient.com.persistence;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import perficient.com.dto.StudentDto;
+import perficient.com.model.Course;
 import perficient.com.model.Student;
 import perficient.com.persistence.PerficientPersistenceException;
 
 public interface IStudentPersistence  {
     
-     void createStudent(Student student) throws PerficientPersistenceException;
+    void createStudent(Student student) throws PerficientPersistenceException;
 
     Collection<Student> getAllStudents()throws PerficientPersistenceException;
     
@@ -17,10 +19,4 @@ public interface IStudentPersistence  {
     void deleteStudent(int id)throws PerficientPersistenceException;
 
     void updateStudent(StudentDto studentDto, int id)throws PerficientPersistenceException;
-
-    boolean userIsUnique(String user) throws PerficientPersistenceException;
-
-    boolean mailIsUnique(String mail) throws PerficientPersistenceException;
-
-    
 }

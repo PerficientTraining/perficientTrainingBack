@@ -20,8 +20,4 @@ public interface IStudentService<T> {
    
     void update(StudentDto studentDto, Integer id) throws PerficientServiceException;
 
-    boolean userIsUnique (String user) throws PerficientServiceException;
-
-    boolean mailIsUnique (String mail) throws PerficientServiceException;
-
 }

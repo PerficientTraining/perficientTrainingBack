@@ -38,18 +38,6 @@ public class BaseEntity implements Serializable {
     public boolean isNew() {
         return this.id == null;
     }
-    
-    public void insertStack (Date date){
-        updateStack.add(date);
-    }
 
-    public void setUpdateStack(Stack<Date> updateStack) {
-        this.updateStack = updateStack;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-    
     
 }

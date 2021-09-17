@@ -68,25 +68,5 @@ public class StudentController {
         }
 
     }
-
-    @PostMapping("/user")
-    public ResponseEntity<?> userIsUnique(@RequestBody String userName) throws PerficientServiceException {
-        try {
-            studentService.userIsUnique(userName);
-            return new ResponseEntity<>("Student with user name " + userName + " is not available.", HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Student with name " + userName + " is available.", HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PostMapping("/mail")
-    public ResponseEntity<?> mailIsUnique(@RequestBody String mail) throws PerficientServiceException {
-
-        try {
-            studentService.mailIsUnique(mail);
-            return new ResponseEntity<>("Mail " + mail + " is unique.", HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Mail  " + mail + " is not unique.", HttpStatus.NOT_FOUND);
-        }
-    }
+    
 }

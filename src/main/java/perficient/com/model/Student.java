@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,37 +19,27 @@ import perficient.com.dto.StudentDto;
 public class Student implements Serializable {
     
     @Id
-    @Column(name = "id")
+    @NotEmpty @NotNull @Column(name = "id")
     private int id;
-    @NotEmpty
-    @Column(name = "personalid")
+    @NotEmpty @NotNull @Column(name = "personalid")
     private int personalId;
-    @NotEmpty
-    @Column(name = "lastname")
+    @NotEmpty @NotNull @Column(name = "lastname")
     private String lastName;
-    @NotEmpty
-    @Column(name = "firstname")
+    @NotEmpty @NotNull @Column(name = "firstname")
     private String firstName;
-    @NotEmpty
-    @Column(name = "secondname")
+    @NotEmpty @NotNull @Column(name = "secondname")
     private String secondName;
-    @NotEmpty
-    @Column(name = "career")
+    @NotEmpty @NotNull @Column(name = "career")
     private String career;
-    @NotEmpty
-    @Column(name = "borndate")
+    @NotEmpty @NotNull @Column(name = "borndate")
     private Date bornDate;
-    @NotEmpty
-    @Column(name = "userid")
+    @NotEmpty @NotNull @Column(name = "userid")
     private String userId;
-    @NotEmpty
-    @Column(name = "password")
+    @NotEmpty @NotNull @Column(name = "password")
     private String password;
-    @NotEmpty
-    @Column(name = "mail")
+    @NotEmpty @NotNull @Column(name = "mail")
     private String mail;
-    @NotEmpty
-    @Column(name = "createdat")
+    @NotEmpty @NotNull @Column(name = "createdat")
     private Date createdAt; 
 
     public Student(StudentDto studentDto,  int uniqueId, Date created) {

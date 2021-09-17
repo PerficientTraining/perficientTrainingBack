@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import perficient.com.dto.StudentDto;
+import perficient.com.model.Course;
 import perficient.com.model.Student;
 import perficient.com.persistence.IStudentPersistence;
 import perficient.com.persistence.PerficientPersistenceException;
@@ -12,8 +13,10 @@ import perficient.com.persistence.repository.IStudentRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -72,7 +75,6 @@ public class StudentPersistenceImpl implements IStudentPersistence {
             throw new PerficientPersistenceException("Student with id: "+ id + "no delete");
 
         }
-
     }
     @Override
     public void updateStudent(StudentDto studentDto, int id) throws PerficientPersistenceException {
@@ -84,36 +86,20 @@ public class StudentPersistenceImpl implements IStudentPersistence {
             throw new PerficientPersistenceException("Student with id: "+ id + "no update");
         }
     }
-    @Override
-    public boolean userIsUnique(String user) throws PerficientPersistenceException {
-        try{
-            List<Student> listStudent = studentRepository.findAll();
-            List<Student> filterUserNames = listStudent
-                    .stream()
-                    .filter(student -> student.getUserId() == user)
-                    .limit(1).collect(Collectors.toList());
-            if (filterUserNames.isEmpty()) return true;
-
-        }
-        catch (Exception e){
-            throw new PerficientPersistenceException("Student with Name: "+ user + "no available");
-        }
-        return false;
+    @Transactional
+    public Optional<Student> findByEmail(String mail) {
+        return studentRepository.findByMail(mail);
     }
-    public boolean mailIsUnique(String mail) throws PerficientPersistenceException {
-        try{
-            List<Student> listStudent = studentRepository.findAll();
-            List<Student> filterUserNames = listStudent.stream()
-                    .filter(student -> student.getMail() == mail)
-                    .limit(2).collect(Collectors.toList());
-            System.out.println(filterUserNames.get(0).toString());
-            if (filterUserNames.isEmpty()){
-                return true;
-            }
-        }
-        catch (Exception e){
-            throw new PerficientPersistenceException("Mail "+ mail + "no available");
-        }
-        return false;
+
+    @Transactional
+    public Optional<Student> finByUserName(String userName) {
+        return studentRepository.findByUserName(userName);
+    }
+
+    public boolean appEmailExists(String mail){
+        return findByEmail(mail).isPresent();
+    }
+    public boolean appUserNameExists(String userName){
+        return finByUserName(userName).isPresent();
     }
 }

@@ -63,30 +63,6 @@ public class StudentServiceImp implements IStudentService<Student> {
     }
 
     @Override
-    public boolean userIsUnique(String user) throws PerficientServiceException {
-        try{
-            if (studentPersistence.userIsUnique(user)){
-                return true;
-            }
-            return false;
-        }catch (Exception e){
-            throw new PerficientServiceException(e.getMessage());
-        }
-    }
-
-    @Override
-    public boolean mailIsUnique(String mail) throws PerficientServiceException {
-        try{
-            if (!studentPersistence.mailIsUnique(mail)){
-                return false;
-            }
-            return true;
-        }catch (Exception e){
-            throw new PerficientServiceException(e.getMessage());
-        }
-    }
-
-    @Override
     public void deleteById(int id) throws PerficientServiceException {
         try {
             if (studentPersistence.findStudentById(id)!=null){
