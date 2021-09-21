@@ -16,7 +16,7 @@ _BACKEND_ Academic registration system of a university
 
 ### DataBase Postgres with heroku
 
-[click her to enter like a administrator](https://data.heroku.com/datastores/5ad20ec4-3eba-40f5-bb76-f08cb3d99ba5#)
+[click here to enter like a administrator](https://data.heroku.com/datastores/5ad20ec4-3eba-40f5-bb76-f08cb3d99ba5#)
 
 
 
