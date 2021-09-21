@@ -25,11 +25,11 @@ _BACKEND_ Academic registration system of a university
 
 ### DataBase Conection JPA, Hibernate, Postgresql
 
-![click here ](https://www.youtube.com/watch?v=3D1gpPknmhA)
+[click here ](https://www.youtube.com/watch?v=3D1gpPknmhA)
 
 ### DataBase model
 
-![click here to see the model](https://lucid.app/lucidchart/dd1bf519-5f5b-4277-955b-b6fdb4749578/edit?beaconFlowId=E45332DC25D3C8F0&page=0_0#)
+[click here to see the model](https://lucid.app/lucidchart/dd1bf519-5f5b-4277-955b-b6fdb4749578/edit?beaconFlowId=E45332DC25D3C8F0&page=0_0#)
 
 
 
