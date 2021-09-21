@@ -16,7 +16,8 @@ _BACKEND_ Academic registration system of a university
 
 ### DataBase Postgres with heroku
 
-![image](https://user-images.githubusercontent.com/45188320/132920068-f9d82d20-5019-400d-bde7-092aa5263ffc.png)
+![image](https://data.heroku.com/datastores/5ad20ec4-3eba-40f5-bb76-f08cb3d99ba5#)
+
 
 
 ### DataBase Administration with DBeaver 
