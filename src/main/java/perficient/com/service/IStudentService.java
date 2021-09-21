@@ -6,10 +6,8 @@
 package perficient.com.service;
 
 import java.util.Collection;
-import java.util.Optional;
 
 import perficient.com.dto.StudentDto;
-import perficient.com.model.Student;
 
 public interface IStudentService<T> {
     
@@ -22,6 +20,8 @@ public interface IStudentService<T> {
     void deleteById (int id) throws PerficientServiceException;
    
     void update(StudentDto studentDto, Integer id) throws PerficientServiceException;
+
+    boolean authenticationStudent(String userName, String password) throws PerficientServiceException;
 
     /*
     Optional<Student> finByUserName(String userName) throws PerficientServiceException;

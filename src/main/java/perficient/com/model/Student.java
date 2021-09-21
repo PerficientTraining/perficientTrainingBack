@@ -19,7 +19,7 @@ import perficient.com.dto.StudentDto;
 public class Student implements Serializable {
     
     @Id
-    @NotEmpty @NotNull @Column(name = "id")
+    @Column(name = "id")
     private int id;
     @NotEmpty @NotNull @Column(name = "personalid")
     private int personalId;
@@ -64,6 +64,6 @@ public class Student implements Serializable {
         this.bornDate = studentDto.getBornDate();
         this.userId = studentDto.getUserId();
         this.password = studentDto.getPassword();
-        this.mail = studentDto.getPassword();
+        this.mail = studentDto.getMail();
     }
 }

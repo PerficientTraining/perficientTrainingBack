@@ -67,6 +67,20 @@ public class StudentController {
             return new ResponseEntity<>("Student with id " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
+    @PostMapping("authenticationStudent")
+    public ResponseEntity<?> authenticationStudent(@RequestParam String userName, @RequestParam String password) {
+        try {
+            if (studentService.authenticationStudent(userName, password)) {
+                return new ResponseEntity<>("Student authentication successful.", HttpStatus.OK);
+            }
+            return new ResponseEntity<>("User no exist.", HttpStatus.CONFLICT);
+        } catch (Exception e) {
+            return new ResponseEntity<>("User no exist.", HttpStatus.CONFLICT);
+
+        }
+    }
+
+
     /*
     @PostMapping("user")
     public ResponseEntity<?> userIsUnique(@RequestBody String userName) {
