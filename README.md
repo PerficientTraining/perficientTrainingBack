@@ -16,7 +16,8 @@ _BACKEND_ Academic registration system of a university
 
 ### DataBase Postgres with heroku
 
-![image](https://user-images.githubusercontent.com/45188320/132920068-f9d82d20-5019-400d-bde7-092aa5263ffc.png)
+[click here to enter like a administrator](https://data.heroku.com/datastores/5ad20ec4-3eba-40f5-bb76-f08cb3d99ba5#)
+
 
 
 ### DataBase Administration with DBeaver 
@@ -25,8 +26,11 @@ _BACKEND_ Academic registration system of a university
 
 ### DataBase Conection JPA, Hibernate, Postgresql
 
-[
-]https://www.youtube.com/watch?v=3D1gpPknmhA
+[click here ](https://www.youtube.com/watch?v=3D1gpPknmhA)
+
+### DataBase model
+
+[click here to see the model](https://lucid.app/lucidchart/dd1bf519-5f5b-4277-955b-b6fdb4749578/edit?beaconFlowId=E45332DC25D3C8F0&page=0_0#)
 
 
 
