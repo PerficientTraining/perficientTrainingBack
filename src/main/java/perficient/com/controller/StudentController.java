@@ -67,7 +67,7 @@ public class StudentController {
             return new ResponseEntity<>("Student with id " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
-    @PostMapping("authenticationStudent")
+    @PostMapping("authentication")
     public ResponseEntity<?> authenticationStudent(@RequestParam String userName, @RequestParam String password) {
         try {
             if (studentService.authenticationStudent(userName, password)) {

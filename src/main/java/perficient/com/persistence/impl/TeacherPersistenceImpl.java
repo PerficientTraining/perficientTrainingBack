@@ -31,7 +31,7 @@ public class TeacherPersistenceImpl implements ITeacherPersistence {
         try{
             teacherRepository.save(teacher);
         }catch (Exception e) {
-            throw new PerficientPersistenceException("Failed to created the Student.");
+            throw new PerficientPersistenceException("Failed to created the teacher.");
         }
     }
 

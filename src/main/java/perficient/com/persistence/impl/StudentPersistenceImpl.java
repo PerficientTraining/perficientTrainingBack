@@ -97,7 +97,8 @@ public class StudentPersistenceImpl implements IStudentPersistence {
             query.setParameter(1, userName);
             query.setParameter(2, password);
             List<Student> result = query.getResultList();
-            if (result.get(0).getUserId()==userName && result.get(0).getPassword()==password){
+            System.out.println(result.get(0).getId());
+            if (result.get(0).getUserId().equals(userName) && result.get(0).getPassword().equals(password)){
                 return true;
             }
 
