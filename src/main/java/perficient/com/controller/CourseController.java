@@ -6,8 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import perficient.com.dto.CourseDto;
 import perficient.com.service.ICourseService;
-
-
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/v1/course")
@@ -50,9 +48,9 @@ public class CourseController {
     public ResponseEntity<?> update(@PathVariable int id, @RequestBody CourseDto courseDto) {
         try {
             courseService.update(courseDto, id);
-            return new ResponseEntity<>("Course " + courseDto.getNameCourse()+" update.", HttpStatus.ACCEPTED);
+            return new ResponseEntity<>("Course " + courseDto.getCourseName()+" update.", HttpStatus.ACCEPTED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Course with id " + courseDto.getNameCourse() + " not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Course with id " + courseDto.getCourseName() + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -66,6 +64,4 @@ public class CourseController {
             return new ResponseEntity<>("Course with id " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
-
-
 }

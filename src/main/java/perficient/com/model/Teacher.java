@@ -1,13 +1,14 @@
 package perficient.com.model;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import perficient.com.dto.TeacherDto;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "teacher", schema = "public")
-public class Teacher {
+public class Teacher implements Serializable {
     @Id
     @Column(name = "id")
     private int id;
@@ -36,23 +37,19 @@ public class Teacher {
     private String mail;
     @NotEmpty @NotNull @Column(name = "createdat")
     private Date createdAt;
-
-
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
-    private List<Group> GroupsToTeach;
+    @NotEmpty @NotNull @Column(name = "hours")
+    private String hours;
 
     public Teacher(int id, TeacherDto teacherDto, Date createdAt) {
-
         this.personalId = teacherDto.getPersonalId();
         this.lastName = teacherDto.getFirstName();
         this.firstName = teacherDto.getFirstName();
         this.secondName = teacherDto.getSecondName();
         this.career = teacherDto.getCareer();
         this.mail = teacherDto.getMail();
-        this.GroupsToTeach = teacherDto.getGroupsToTeach();
         this.id = id;
         this.createdAt = createdAt;
-
+        this.hours = teacherDto.getHours();
     }
 
     public void setTeacherDto(TeacherDto teacherDto) {
@@ -62,6 +59,6 @@ public class Teacher {
         this.secondName = teacherDto.getSecondName();
         this.career = teacherDto.getCareer();
         this.mail = teacherDto.getMail();
-        this.GroupsToTeach = teacherDto.getGroupsToTeach();
+        this.hours = teacherDto.getHours();
     }
 }

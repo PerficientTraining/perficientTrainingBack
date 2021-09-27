@@ -50,7 +50,7 @@ public class CoursePersistenceImpl implements ICoursePersistence {
     @Override
     public Course findCourseById(int id) throws PerficientPersistenceException {
         try {
-            Course course = courseRepository.getById(id);
+            Course course = courseRepository.findById(id).get();
             if (!course.equals(null)){
                 return course;
             }

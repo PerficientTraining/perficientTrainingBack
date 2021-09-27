@@ -54,7 +54,7 @@ public class StudentPersistenceImpl implements IStudentPersistence {
     @Override
     public Student findStudentById(int id) throws PerficientPersistenceException {
         try {
-            Student student = studentRepository.getById(id);
+            Student student = studentRepository.findById(id).get();
             if (!student.equals(null)){
                 return student;
             }
@@ -96,9 +96,7 @@ public class StudentPersistenceImpl implements IStudentPersistence {
             Query query = entityManager.createNativeQuery("select * from student where userid=? AND password= ?",Student.class);
             query.setParameter(1, userName);
             query.setParameter(2, password);
-            List<Student> result = query.getResultList();
-            System.out.println(result.get(0).getId());
-            if (result.get(0).getUserId().equals(userName) && result.get(0).getPassword().equals(password)){
+            if (!query.getResultList().isEmpty()){
                 return true;
             }
 

@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import perficient.com.dto.GroupDto;
+import perficient.com.dto.TeacherDto;
 import perficient.com.model.Group;
 import perficient.com.persistence.IGroupPersistence;
 import perficient.com.service.IGroupService;
@@ -73,4 +74,24 @@ public class GroupServiceImp implements IGroupService<Group> {
             throw new PerficientServiceException(e.getMessage());
         }
     }
+
+    @Override
+    public void assignTeacherAndHours(int idGroup, int idTeacher, String hours) throws PerficientServiceException{
+        try {
+            groupPersistence.assignTeacherAndHours(idGroup, idTeacher, hours);
+        } catch (Exception e) {
+            throw new PerficientServiceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void assingCourse(int idCourse, int idGroup) throws PerficientServiceException {
+        try {
+            groupPersistence.assignCourse(idCourse, idGroup);
+        } catch (Exception e) {
+            throw new PerficientServiceException(e.getMessage());
+        }
+    }
+
 }
+

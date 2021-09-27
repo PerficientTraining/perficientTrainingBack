@@ -18,5 +18,5 @@ public class TeacherDto extends BaseEntity implements Serializable {
     private String secondName;
     private String career;
     private String mail;
-    private List<Group> groupsToTeach;
+    private String hours;
 }

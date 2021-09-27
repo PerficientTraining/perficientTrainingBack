@@ -5,9 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import perficient.com.dto.StudentDto;
-import perficient.com.model.Student;
 import perficient.com.service.IStudentService;
-import perficient.com.service.PerficientServiceException;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -67,42 +65,18 @@ public class StudentController {
             return new ResponseEntity<>("Student with id " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
-    @PostMapping("authentication")
+    @PostMapping("authenticationStudent")
     public ResponseEntity<?> authenticationStudent(@RequestParam String userName, @RequestParam String password) {
         try {
             if (studentService.authenticationStudent(userName, password)) {
                 return new ResponseEntity<>("Student authentication successful.", HttpStatus.OK);
             }
-            return new ResponseEntity<>("User no exist.", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("User no exist.", HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>("User no exist.", HttpStatus.CONFLICT);
 
         }
     }
-
-
-    /*
-    @PostMapping("user")
-    public ResponseEntity<?> userIsUnique(@RequestBody String userName) {
-        try {
-            studentService.finByUserName(userName);
-            return new ResponseEntity<>("Student create.", HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("User not Created", HttpStatus.CONFLICT);
-
-        }
-    }
-    @PostMapping("mail")
-    public ResponseEntity<?> mailIsUnique(@RequestBody String mail) {
-        try {
-            studentService.finByUserName(mail);
-            return new ResponseEntity<>("Student create.", HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("User not Created", HttpStatus.CONFLICT);
-
-        }
-    }
-    */
 
 
 }

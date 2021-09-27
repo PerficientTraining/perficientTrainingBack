@@ -15,9 +15,8 @@ import java.util.List;
 @Setter
 public class CourseDto extends BaseEntity implements Serializable {
 
-    private String nameCourse;
+    private String courseName;
     private int heavy;
     private String career;
     private List<Group> groups;
-
 }

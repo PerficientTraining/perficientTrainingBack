@@ -31,7 +31,7 @@ public class TeacherPersistenceImpl implements ITeacherPersistence {
         try{
             teacherRepository.save(teacher);
         }catch (Exception e) {
-            throw new PerficientPersistenceException("Failed to created the teacher.");
+            throw new PerficientPersistenceException("Failed to created the Teacher.");
         }
     }
 
@@ -50,7 +50,7 @@ public class TeacherPersistenceImpl implements ITeacherPersistence {
     @Override
     public Teacher findTeacherById(int id) throws PerficientPersistenceException {
         try {
-            Teacher teacher = teacherRepository.getById(id);
+            Teacher teacher = teacherRepository.findById(id).get();
             if (!teacher.equals(null)){
                 return teacher;
             }

@@ -2,6 +2,7 @@ package perficient.com.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -40,12 +41,15 @@ public class Student implements Serializable {
     @NotEmpty @NotNull @Column(name = "mail")
     private String mail;
     @NotEmpty @NotNull @Column(name = "createdat")
-    private Date createdAt; 
+    private Date createdAt;
+
+    @ManyToMany
+    private List<Group> groupRegister;
 
     public Student(StudentDto studentDto,  int uniqueId, Date created) {
         this.personalId = studentDto.getPersonalId();
         this.lastName = studentDto.getLastName();
-        this.firstName = studentDto.getLastName();
+        this.firstName = studentDto.getFirstName();
         this.secondName = studentDto.getSecondName();
         this.career = studentDto.getCareer();
         this.bornDate = studentDto.getBornDate();
@@ -58,7 +62,7 @@ public class Student implements Serializable {
      public void setStudentDto(StudentDto studentDto) {
         this.personalId = studentDto.getPersonalId();
         this.lastName = studentDto.getLastName();
-        this.firstName = studentDto.getLastName();
+        this.firstName = studentDto.getFirstName();
         this.secondName = studentDto.getSecondName();
         this.career = studentDto.getCareer();
         this.bornDate = studentDto.getBornDate();

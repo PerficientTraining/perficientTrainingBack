@@ -10,14 +10,13 @@ _BACKEND_ Academic registration system of a university
 
 ### Deployed in
 
-[![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)](https://microserviceproductvendapues.herokuapp.com/product)
+[![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)](https://postgresqlperficient.herokuapp.com/)
 
 [![CircleCI](https://circleci.com/gh/Petbook-ARSW/Petbook-Back-End.svg?style=svg)](https://app.circleci.com/pipelines/github/sf-burgos/PerficientTrainingBack)
 
 ### DataBase Postgres with heroku
 
-[click here to enter like a administrator](https://data.heroku.com/datastores/5ad20ec4-3eba-40f5-bb76-f08cb3d99ba5#)
-
+![image](https://user-images.githubusercontent.com/45188320/132920068-f9d82d20-5019-400d-bde7-092aa5263ffc.png)
 
 
 ### DataBase Administration with DBeaver 
@@ -26,11 +25,8 @@ _BACKEND_ Academic registration system of a university
 
 ### DataBase Conection JPA, Hibernate, Postgresql
 
-[click here ](https://www.youtube.com/watch?v=3D1gpPknmhA)
-
-### DataBase model
-
-[click here to see the model](https://lucid.app/lucidchart/dd1bf519-5f5b-4277-955b-b6fdb4749578/edit?beaconFlowId=E45332DC25D3C8F0&page=0_0#)
+[
+]https://www.youtube.com/watch?v=3D1gpPknmhA
 
 
 
