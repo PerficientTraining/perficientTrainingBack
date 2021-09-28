@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
@@ -40,8 +41,8 @@ public class Group implements Serializable {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @ManyToMany
-    private List<Student> studentsRegister;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Student> studentsRegister;
 
     public Group(int id, GroupDto groupDto, Date createdAt) {
         this.id = id;

@@ -1,8 +1,10 @@
 package perficient.com.persistence;
 
 import java.util.Collection;
+import java.util.List;
 
 import perficient.com.dto.StudentDto;
+import perficient.com.model.Group;
 import perficient.com.model.Student;
 
 public interface IStudentPersistence  {
@@ -17,7 +19,7 @@ public interface IStudentPersistence  {
 
     void updateStudent(StudentDto studentDto, int id)throws PerficientPersistenceException;
 
-    boolean authenticationStudent(String userName, String password) throws PerficientPersistenceException;
+    Student authenticationStudent(String userName, String password) throws PerficientPersistenceException;
 
-
+    List<Group> groupsRegistered(int id)throws PerficientPersistenceException;
 }

@@ -1,5 +1,6 @@
 package perficient.com.service.impl;
 
+import perficient.com.model.Group;
 import perficient.com.persistence.IStudentPersistence;
 import perficient.com.service.PerficientServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +8,9 @@ import org.springframework.stereotype.Service;
 import perficient.com.dto.StudentDto;
 import perficient.com.model.Student;
 import perficient.com.service.IStudentService;
-import java.util.Collection;
-import java.util.Date;
-import java.util.UUID;
+
+import java.util.*;
+
 import lombok.NoArgsConstructor;
 
 
@@ -63,10 +64,20 @@ public class StudentServiceImp implements IStudentService<Student> {
     }
 
     @Override
-    public boolean authenticationStudent(String userName, String password) throws PerficientServiceException {
+    public Student authenticationStudent(String userName, String password) throws PerficientServiceException {
         try {
             return studentPersistence.authenticationStudent(userName, password);
         } catch (Exception e) {
+            throw new PerficientServiceException(e.getMessage());
+        }
+
+    }
+
+    @Override
+    public List<Group> groupsRegistered(int id) throws PerficientServiceException {
+        try{
+            return studentPersistence.groupsRegistered(id);
+        }catch (Exception e){
             throw new PerficientServiceException(e.getMessage());
         }
 

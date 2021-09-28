@@ -3,6 +3,7 @@ package perficient.com.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -42,9 +43,6 @@ public class Student implements Serializable {
     private String mail;
     @NotEmpty @NotNull @Column(name = "createdat")
     private Date createdAt;
-
-    @ManyToMany
-    private List<Group> groupRegister;
 
     public Student(StudentDto studentDto,  int uniqueId, Date created) {
         this.personalId = studentDto.getPersonalId();

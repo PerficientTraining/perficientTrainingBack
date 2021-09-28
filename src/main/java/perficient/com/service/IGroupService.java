@@ -1,15 +1,12 @@
 package perficient.com.service;
 
 import perficient.com.dto.GroupDto;
-import perficient.com.dto.StudentDto;
-import perficient.com.dto.TeacherDto;
-import perficient.com.model.Group;
 
 import java.util.Collection;
 
 public interface IGroupService<T> {
 
-    T create (GroupDto groupDto) throws PerficientServiceException;
+    T create(GroupDto groupDto, int idCourse, int idTeacher) throws PerficientServiceException;
 
     T findById (Integer id)  throws PerficientServiceException;
 
@@ -19,7 +16,8 @@ public interface IGroupService<T> {
 
     void update(GroupDto groupDto, Integer id) throws PerficientServiceException;
 
-    void assignTeacherAndHours(int idGroup, int idTeacher, String hours) throws PerficientServiceException;
+    void assingStudents(int idStudent,int idGroup) throws PerficientServiceException;
 
-    void assingCourse(int idCourse, int idGroup) throws PerficientServiceException;
+    void unenrollmentStudents(int idStudent, int idGroup)  throws PerficientServiceException;
+
 }

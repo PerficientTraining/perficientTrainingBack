@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import perficient.com.dto.StudentDto;
+import perficient.com.model.Group;
 import perficient.com.model.Student;
 import perficient.com.persistence.IStudentPersistence;
 import perficient.com.persistence.PerficientPersistenceException;
@@ -14,9 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.persistence.Query;
 
 
@@ -91,39 +89,41 @@ public class StudentPersistenceImpl implements IStudentPersistence {
     }
 
     @Override
-    public boolean authenticationStudent(String userName, String password) throws PerficientPersistenceException {
+    public Student authenticationStudent(String userName, String password) throws PerficientPersistenceException {
         try {
             Query query = entityManager.createNativeQuery("select * from student where userid=? AND password= ?",Student.class);
             query.setParameter(1, userName);
             query.setParameter(2, password);
-            if (!query.getResultList().isEmpty()){
-                return true;
+            List<Student> listStudent = query.getResultList();
+            System.out.println(listStudent.get(0).getId());
+            if (listStudent.size()>0){
+                return listStudent.get(0);
             }
+                throw new PerficientPersistenceException("Student doesn't exist");
 
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new PerficientPersistenceException("Error");
+        }
+    }
+
+    @Override
+    public List<Group> groupsRegistered(int id) throws PerficientPersistenceException {
+        try {
+            Query query = entityManager
+                    .createNativeQuery("select * from \"group\" g " +
+                            "where id in (select distinct group_id " +
+                                          "from group_studentsregister " +
+                                          "where studentsregister_id  = ?)", Group.class);
+            query.setParameter(1, id);
+            return query.getResultList();
         }catch (Exception e){
             throw new PerficientPersistenceException("Student doesn't exist");
         }
-        return false;
-    }
 
-    /*
-    @Override
-    public Optional<Student> findByMail(String mail) throws PerficientPersistenceException {
-        try {
-            return studentRepository.findByMail(mail);
-        }catch (Exception e){
-            throw new PerficientPersistenceException("Student with mail: "+ mail + "no found");
-        }
+
 
     }
 
-    @Override
-    public Optional<Student> findByUserName(String userName) throws PerficientPersistenceException {
-        try {
-            return studentRepository.findByUserName(userName);
-        }catch (Exception e){
-            throw new PerficientPersistenceException("Student with username: "+ userName + "no found");
-        }
-    }
-    */
+
 }

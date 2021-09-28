@@ -10,7 +10,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -42,7 +41,7 @@ public class Teacher implements Serializable {
 
     public Teacher(int id, TeacherDto teacherDto, Date createdAt) {
         this.personalId = teacherDto.getPersonalId();
-        this.lastName = teacherDto.getFirstName();
+        this.lastName = teacherDto.getLastName();
         this.firstName = teacherDto.getFirstName();
         this.secondName = teacherDto.getSecondName();
         this.career = teacherDto.getCareer();
@@ -55,7 +54,7 @@ public class Teacher implements Serializable {
     public void setTeacherDto(TeacherDto teacherDto) {
         this.personalId = teacherDto.getPersonalId();
         this.lastName = teacherDto.getLastName();
-        this.firstName = teacherDto.getLastName();
+        this.firstName = teacherDto.getFirstName();
         this.secondName = teacherDto.getSecondName();
         this.career = teacherDto.getCareer();
         this.mail = teacherDto.getMail();

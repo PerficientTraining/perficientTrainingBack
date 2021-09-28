@@ -4,7 +4,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import perficient.com.dto.GroupDto;
-import perficient.com.dto.TeacherDto;
 import perficient.com.model.Group;
 import perficient.com.persistence.IGroupPersistence;
 import perficient.com.service.IGroupService;
@@ -22,11 +21,11 @@ public class GroupServiceImp implements IGroupService<Group> {
     private IGroupPersistence groupPersistence;
     
     @Override
-    public Group create(GroupDto groupDto) throws PerficientServiceException {
+    public Group create(GroupDto groupDto, int idCourse, int idTeacher) throws PerficientServiceException {
         try {
             int uniqueId = (int) UUID.randomUUID().hashCode();
             Group group = new Group(uniqueId, groupDto, new Date());
-            groupPersistence.createGroup(group);
+            groupPersistence.createGroup(group, idCourse, idTeacher);
             return group;
         } catch (Exception e) {
             throw new PerficientServiceException(e.getMessage());
@@ -76,19 +75,20 @@ public class GroupServiceImp implements IGroupService<Group> {
     }
 
     @Override
-    public void assignTeacherAndHours(int idGroup, int idTeacher, String hours) throws PerficientServiceException{
-        try {
-            groupPersistence.assignTeacherAndHours(idGroup, idTeacher, hours);
-        } catch (Exception e) {
+    public void assingStudents(int idStudent, int idGroup) throws PerficientServiceException {
+        try{
+            groupPersistence.assingStudents(idStudent, idGroup);
+
+        }catch (Exception e){
             throw new PerficientServiceException(e.getMessage());
         }
     }
 
     @Override
-    public void assingCourse(int idCourse, int idGroup) throws PerficientServiceException {
-        try {
-            groupPersistence.assignCourse(idCourse, idGroup);
-        } catch (Exception e) {
+    public void unenrollmentStudents(int idStudent, int idGroup) throws PerficientServiceException {
+        try{
+            groupPersistence.unenrollmentStudents(idStudent, idGroup);
+        }catch (Exception e){
             throw new PerficientServiceException(e.getMessage());
         }
     }

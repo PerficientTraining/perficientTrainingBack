@@ -23,7 +23,6 @@ public class StudentController {
             return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
         }
     }
-
     @PostMapping()
     public ResponseEntity<?> create(@RequestBody StudentDto studentDto) {
         try {
@@ -34,7 +33,6 @@ public class StudentController {
 
         }
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable int id) {
         try {
@@ -44,7 +42,6 @@ public class StudentController {
         }
 
     }
-
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable int id, @RequestBody StudentDto studentDto) {
         try {
@@ -54,7 +51,6 @@ public class StudentController {
             return new ResponseEntity<>("Student with id " + studentDto.getUserId() + " not found.", HttpStatus.NOT_FOUND);
         }
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable int id) {
         try {
@@ -68,15 +64,20 @@ public class StudentController {
     @PostMapping("authenticationStudent")
     public ResponseEntity<?> authenticationStudent(@RequestParam String userName, @RequestParam String password) {
         try {
-            if (studentService.authenticationStudent(userName, password)) {
-                return new ResponseEntity<>("Student authentication successful.", HttpStatus.OK);
-            }
-            return new ResponseEntity<>("User no exist.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(studentService.authenticationStudent(userName, password), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("User no exist.", HttpStatus.CONFLICT);
-
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
     }
+    @GetMapping("groupsRegistered")
+    public ResponseEntity<?> groupsRegistered(@RequestParam int id) {
+        try {
+            return new ResponseEntity<>(studentService.groupsRegistered(id), HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 
 }

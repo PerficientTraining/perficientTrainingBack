@@ -27,9 +27,9 @@ public class GroupController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody GroupDto groupDto) {
+    public ResponseEntity<?> create(@RequestBody GroupDto groupDto, @RequestParam int idCourse, @RequestParam int idTeacher) {
         try {
-            return new ResponseEntity<>(groupService.create(groupDto), HttpStatus.CREATED);
+            return new ResponseEntity<>(groupService.create(groupDto, idCourse, idTeacher), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Group not Created", HttpStatus.CONFLICT);
 
@@ -43,17 +43,6 @@ public class GroupController {
         } catch (Exception e) {
             return new ResponseEntity<>("Group with id: " + id + " not found.", HttpStatus.NOT_FOUND);
         }
-
-    }
-
-    @PutMapping("/assignTeacherAndHours")
-    public ResponseEntity<?> assignTeacherAndHours(@RequestParam int idGroup, @RequestParam int idTeacher, @RequestParam String hours) {
-        try {
-            groupService.assignTeacherAndHours(idGroup, idTeacher, hours);
-            return new ResponseEntity<>("Teacher " + idTeacher + " assign.", HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Teacher with id " + idTeacher + " not found.", HttpStatus.NOT_FOUND);
-        }
     }
 
     @PutMapping("/{id}/")
@@ -66,7 +55,6 @@ public class GroupController {
         }
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable int id) {
         try {
@@ -78,13 +66,24 @@ public class GroupController {
         }
     }
 
-    @PutMapping("/assingCourse")
-    public ResponseEntity<?> assingCourse(@RequestParam int idCourse,@RequestParam int idGroup) {
+    @PutMapping("/assingStudents")
+    public ResponseEntity<?> assingStudents(@RequestParam int idStudent,@RequestParam int idGroup) {
         try {
-            groupService.assingCourse(idCourse, idGroup);
-            return new ResponseEntity<>("Course assigned to group " +idGroup, HttpStatus.ACCEPTED);
+            groupService.assingStudents(idStudent, idGroup);
+            return new ResponseEntity<>("Student assigned to group " + idStudent, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             return new ResponseEntity<>("Group not assigned", HttpStatus.CONFLICT);
+
+        }
+    }
+
+    @PutMapping("/unenrollmentStudents")
+    public ResponseEntity<?> unenrollmentStudents(@RequestParam int idStudent,@RequestParam int idGroup) {
+        try {
+            groupService.unenrollmentStudents(idStudent, idGroup);
+            return new ResponseEntity<>("Student unenrollment to group " + idStudent, HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Student not unenrollment", HttpStatus.CONFLICT);
 
         }
     }

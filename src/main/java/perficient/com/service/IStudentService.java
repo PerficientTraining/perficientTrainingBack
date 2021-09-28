@@ -6,8 +6,11 @@
 package perficient.com.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import perficient.com.dto.StudentDto;
+import perficient.com.model.Group;
+import perficient.com.model.Student;
 
 public interface IStudentService<T> {
     
@@ -21,12 +24,7 @@ public interface IStudentService<T> {
    
     void update(StudentDto studentDto, Integer id) throws PerficientServiceException;
 
-    boolean authenticationStudent(String userName, String password) throws PerficientServiceException;
+    Student authenticationStudent(String userName, String password) throws PerficientServiceException;
 
-    /*
-    Optional<Student> finByUserName(String userName) throws PerficientServiceException;
-
-    Optional<Student> findByMail(String mail) throws PerficientServiceException;
-     */
-
+    List<Group> groupsRegistered(int id)throws PerficientServiceException;
 }
