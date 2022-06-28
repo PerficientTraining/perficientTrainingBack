@@ -1,11 +1,16 @@
 package perficient.com.controller;
 
+import java.util.Collection;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import perficient.com.dto.StudentDto;
+import perficient.com.model.Group;
+import perficient.com.model.Student;
 import perficient.com.service.IStudentService;
+import perficient.com.service.PerficientServiceException;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -13,71 +18,45 @@ import perficient.com.service.IStudentService;
 public class StudentController {
 
     @Autowired
-    IStudentService studentService;
+    public IStudentService studentService;
 
     @GetMapping()
-    public ResponseEntity<?> all() {
-        try {
-            return new ResponseEntity<>(studentService.all(), HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Collection <Student>> all() throws PerficientServiceException {
+        return new ResponseEntity<>(studentService.all(), HttpStatus.ACCEPTED);
     }
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody StudentDto studentDto) {
-        try {
-            studentService.create(studentDto);
-            return new ResponseEntity<>("Student create.", HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("User not Created", HttpStatus.CONFLICT);
-
-        }
+    public ResponseEntity<String> create(@RequestBody StudentDto studentDto) throws PerficientServiceException {
+        studentService.create(studentDto);
+        return new ResponseEntity<>("Student with personalId : " + studentDto.getPersonalId(), HttpStatus.CREATED);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable int id) {
-        try {
-            return new ResponseEntity<>(studentService.findById(id), HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Student with id: " + id + " not found.", HttpStatus.NOT_FOUND);
-        }
-
+    public ResponseEntity<Student> findById(@PathVariable int id) throws PerficientServiceException {
+        return new ResponseEntity<>(studentService.findById(id), HttpStatus.ACCEPTED);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable int id, @RequestBody StudentDto studentDto) {
-        try {
-            studentService.update(studentDto, id);
-            return new ResponseEntity<>("Student " + studentDto.getUserId() + " update.", HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Student with id " + studentDto.getUserId() + " not found.", HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<String> update(@PathVariable int id, @RequestBody StudentDto studentDto)
+        throws PerficientServiceException {
+        studentService.update(studentDto, id);
+        return new ResponseEntity<>("Student " + studentDto.getUserId() + " update.", HttpStatus.ACCEPTED);
+
+
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable int id) {
-        try {
-            studentService.findById(id);
-            studentService.deleteById(id);
-            return new ResponseEntity<>("Student with id " + id + " delete.", HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Student with id " + id + " not found.", HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<String> deleteById(@PathVariable int id) throws PerficientServiceException {
+        studentService.findById(id);
+        studentService.deleteById(id);
+        return new ResponseEntity<>("Student with id " + id + " delete.", HttpStatus.ACCEPTED);
     }
     @PostMapping("authenticationStudent")
-    public ResponseEntity<?> authenticationStudent(@RequestParam String userName, @RequestParam String password) {
-        try {
-            return new ResponseEntity<>(studentService.authenticationStudent(userName, password), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }
+    public ResponseEntity<String> authenticationStudent(@RequestParam String userName, @RequestParam String password)
+        throws PerficientServiceException {
+        studentService.authenticationStudent(userName, password);
+        return new ResponseEntity<>("Authentication Student with user name : "+userName+"and password : " + password,
+            HttpStatus.OK);
     }
+
     @GetMapping("groupsRegistered")
-    public ResponseEntity<?> groupsRegistered(@RequestParam int id) {
-        try {
-            return new ResponseEntity<>(studentService.groupsRegistered(id), HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<List<Group>> groupsRegistered(@RequestParam int id) throws PerficientServiceException {
+        return new ResponseEntity<>(studentService.groupsRegistered(id), HttpStatus.ACCEPTED);
     }
-
-
-
 }

@@ -1,5 +1,6 @@
 package perficient.com.service.impl;
 
+import lombok.AllArgsConstructor;
 import perficient.com.model.Group;
 import perficient.com.persistence.IStudentPersistence;
 import perficient.com.service.PerficientServiceException;
@@ -15,8 +16,9 @@ import lombok.NoArgsConstructor;
 
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Service
-public class StudentServiceImp implements IStudentService<Student> {
+public class StudentServiceImp implements IStudentService{
 
     @Autowired
     private IStudentPersistence studentPersistence;
@@ -24,7 +26,7 @@ public class StudentServiceImp implements IStudentService<Student> {
     @Override
     public Student create(StudentDto studentDto) throws PerficientServiceException {
         try {
-            int uniqueId = (int) UUID.randomUUID().hashCode();
+            int uniqueId = UUID.randomUUID().hashCode();
             Student student = new Student(studentDto, uniqueId, new Date());
             studentPersistence.createStudent(student);
             return student;
@@ -46,7 +48,7 @@ public class StudentServiceImp implements IStudentService<Student> {
     @Override
     public Collection<Student> all() throws PerficientServiceException {
         try {
-            return (Collection) studentPersistence.getAllStudents();
+            return studentPersistence.getAllStudents();
         } catch (Exception e) {
             throw new PerficientServiceException(e.getMessage());
         }
@@ -70,7 +72,6 @@ public class StudentServiceImp implements IStudentService<Student> {
         } catch (Exception e) {
             throw new PerficientServiceException(e.getMessage());
         }
-
     }
 
     @Override
@@ -80,7 +81,6 @@ public class StudentServiceImp implements IStudentService<Student> {
         }catch (Exception e){
             throw new PerficientServiceException(e.getMessage());
         }
-
     }
 
     @Override

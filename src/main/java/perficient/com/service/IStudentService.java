@@ -12,19 +12,12 @@ import perficient.com.dto.StudentDto;
 import perficient.com.model.Group;
 import perficient.com.model.Student;
 
-public interface IStudentService<T> {
-    
-    T create (StudentDto studentDto) throws PerficientServiceException;
-    
-    T findById (Integer id)  throws PerficientServiceException;
-    
-    Collection <T> all() throws PerficientServiceException;
-    
+public interface IStudentService{
+    Student create (StudentDto studentDto) throws PerficientServiceException;
+    Student findById (Integer id)  throws PerficientServiceException;
+    Collection <Student> all() throws PerficientServiceException;
     void deleteById (int id) throws PerficientServiceException;
-   
     void update(StudentDto studentDto, Integer id) throws PerficientServiceException;
-
     Student authenticationStudent(String userName, String password) throws PerficientServiceException;
-
     List<Group> groupsRegistered(int id)throws PerficientServiceException;
 }
